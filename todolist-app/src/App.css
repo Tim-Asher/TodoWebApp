@@ -1,0 +1,19 @@
+.my-overlay {
+  /* display: none; */
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.507);
+}
+.login-modal {
+  /* display: none; */
+  width: 50%;
+  height: 50%;
+  background: white;
+}
+.register-modal {
+  /* display: none; */
+  width: 50%;
+  height: 50%;
+  background: white;
+}
