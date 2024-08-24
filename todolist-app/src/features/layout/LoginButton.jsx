@@ -6,7 +6,8 @@ import {
 } from "../../slices/userApiSlice";
 
 const LoginButton = () => {
-  const { login, setLogin, changeOverlayDisplay } = useContext(TodoContext);
+  const { login, setLogin, changeOverlayDisplay, setTasks } =
+    useContext(TodoContext);
   const { data, isLoading, error } = useCheckTokenQuery();
   const [logoutUser] = useLogoutUserMutation();
 
@@ -14,6 +15,7 @@ const LoginButton = () => {
     if (window.confirm("Are you sure you want to log out ? ")) {
       logoutUser().then((data) => {
         setLogin(false);
+        setTasks([]);
       });
     }
   };

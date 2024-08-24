@@ -4,42 +4,27 @@ import { useContext, useEffect, useState } from "react";
 import TodoContext from "../../context/todos";
 
 const Items = () => {
-  const { tasks, setTasks } = useContext(TodoContext);
-  // const { data, isLoading, error } = useGetTasksQuery();
-  const { login } = useContext(TodoContext);
-  // const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(false);
-  // console.log(data?.docs);
+  const { tasks, setTasks, login } = useContext(TodoContext);
+  const [localLoading, setLocalLoading] = useState(false);
 
-  let { data, isLoading, error, refetch } = useGetTasksQuery(undefined, {
-    skip: !login, // Skip the query if the user is not logged in
+  let { data, error, isLoading, refetch } = useGetTasksQuery(undefined, {
+    skip: !login,
   });
 
   useEffect(() => {
-    if (login) {
-      setLoading(true); // Set loading to true when fetching new data
-      refetch()
-        .then((response) => {
-          setTasks(response.data?.docs || []); // Update tasks with new data
-        })
-        .finally(() => {
-          setLoading(false); // Stop loading after fetching is complete
-        });
-    } else {
-      setTasks([]); // Clear tasks when logging out
+    if (data) {
+      setTasks(data.docs);
+      setLocalLoading(false);
     }
-  }, [login, refetch, tasks]);
+  }, [data, setTasks]);
 
-  if (loading || isLoading) {
-    return (
-      <div
-        className="col-12 col-md-5 bg-primary-subtle rounded-3 m-2 "
-        id="accordionExample"
-      >
-        <p>Loading</p>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (login) {
+      setTasks([]);
+      setLocalLoading(true);
+      refetch();
+    }
+  }, [login, refetch]);
 
   return (
     <div

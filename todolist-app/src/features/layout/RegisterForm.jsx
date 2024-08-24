@@ -16,9 +16,9 @@ const RegisterForm = () => {
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
-    // createUser({ email, password, passwordConfirm });
-    const res = await registerUser({ email, password, passwordConfirm });
-    dispatch(setUserInfoOnLoginOrRegister({ ...res }));
+    createUser({ email, password, passwordConfirm });
+    // const res = await registerUser({ email, password, passwordConfirm });
+    // dispatch(setUserInfoOnLoginOrRegister({ ...res }));
   };
   return (
     <form
